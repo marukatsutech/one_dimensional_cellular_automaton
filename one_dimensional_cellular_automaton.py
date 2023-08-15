@@ -19,6 +19,7 @@ def change_rule_num(value):
            + ", 011:" + r[4] + ", 010:" + r[5] + ", 001:" + r[6] + ", 000:" + r[7]
     # print(rule)
     label_rule["text"] = rule
+    ax.set_title("One dimensional cellular automaton (Rule number:" + str(rule_number) + ")")
     clear_cells()
     initialize_cells0()
 
@@ -71,7 +72,7 @@ def eval_neighbours(rw):
 
 
 def next_generation():
-    global cells0, current_row
+    global cells0, current_row, rule_number, is_play
     # print(current_row)
     for j in range(col):
         result = eval_neighbours(j)
@@ -79,10 +80,17 @@ def next_generation():
     current_row += 1
     if current_row > row - 1:
         current_row = 0
+        if is_auto:
+            rule_number += 1
+            if rule_number > 255:
+                rule_number = 0
+            change_rule_num(rule_number)
+            var_rn.set(rule_number)
+            is_play = True
 
 
 def clear_cells():
-    global cells0, cnt, current_row, on_play, cnt
+    global cells0, cnt, current_row, is_play, cnt
     for i in range(row):
         for j in range(col):
             cells0[i][j] = 0
@@ -90,7 +98,7 @@ def clear_cells():
     tx_step.set_text("Step=" + str(cnt))
     draw_cell()
     current_row = 0
-    on_play = False
+    is_play = False
     cnt = 0
 
 
@@ -155,21 +163,32 @@ def mouse_motion(event):
 
 
 def on_change_window(e):
-    if not on_play:
+    if not is_play:
         draw_cell()
 
 
-def switch():
-    global on_play
-    if on_play:
-        on_play = False
+def switch_auto():
+    global is_auto, is_play
+    if is_auto:
+        is_auto = False
     else:
-        on_play = True
+        is_auto = True
+        change_rule_num(0)
+        var_rn.set(rule_number)
+        is_play = True
+
+
+def switch():
+    global is_play
+    if is_play:
+        is_play = False
+    else:
+        is_play = True
 
 
 def update(f):
     global cells0, x, y, scat, tx_step, cnt
-    if on_play:
+    if is_play:
         tx_step.set_text("Step=" + str(cnt))
         cnt += 1
         # evaluate cells
@@ -180,17 +199,18 @@ def update(f):
 
 # Global variables
 x_min = 0.
-x_max = 200.
+x_max = 80.
 y_min = 0
-y_max = 200
+y_max = 80
 
-row = 200
-col = 200
+row = 80
+col = 80
 cells0 = np.zeros((row, col))   # Cells plane
 
 cells_offset = 0.5   # Offset in plt.scatter
 
-on_play = False
+is_play = False
+is_auto = False
 cnt = 0
 
 current_row = 0
@@ -207,7 +227,7 @@ initialize_cells0()
 # Generate figure and axes
 fig = Figure()
 ax = fig.add_subplot(111)
-ax.set_title("One dimensional cellular automaton")
+ax.set_title("One dimensional cellular automaton (Rule number:" + str(rule_number) + ")")
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_xlim(x_min, x_max)
@@ -246,6 +266,10 @@ btn_clr.pack(side='left')
 btn_clr = tk.Button(root, text="Clear", command=clear_cells)
 btn_clr.pack(side='left')
 
+# Auto Play button
+btn_at = tk.Button(root, text="Auto", command=switch_auto)
+btn_at.pack(side='left')
+
 # Role number
 label_rn = tk.Label(root, text="Rule number:")
 label_rn.pack(side='left')
@@ -260,6 +284,6 @@ label_rule = tk.Label(root, text=rule)
 label_rule.pack(side='left')
 
 # Draw animation
-anim = animation.FuncAnimation(fig, update, interval=100)
+anim = animation.FuncAnimation(fig, update, interval=50)
 root.bind('<Configure>', on_change_window)
 root.mainloop()
