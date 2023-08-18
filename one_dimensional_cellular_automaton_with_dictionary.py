@@ -48,8 +48,7 @@ def boundary_col(n):    # Boundary condition
 
 
 def eval_neighbours(rw):
-    global cells0, current_row, rule_number_bin_str, rule_dictionary
-    result = 0
+    global cells0, current_row, rule_dictionary
     cell_left = cells0[current_row][boundary_row(rw - 1)]
     cell_self = cells0[current_row][rw]
     cell_right = cells0[current_row][boundary_row(rw + 1)]
