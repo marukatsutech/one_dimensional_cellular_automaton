@@ -48,7 +48,7 @@ def boundary_col(n):    # Boundary condition
 
 
 def eval_neighbours(cl):
-    global cells0, current_row, rule_dictionary
+    global cells0, row_current, rule_dictionary
     cell_left = cells0[current_row][boundary_row(cl - 1)]
     cell_self = cells0[current_row][cl]
     cell_right = cells0[current_row][boundary_row(cl + 1)]
@@ -59,7 +59,7 @@ def eval_neighbours(cl):
 
 
 def next_generation():
-    global cells0, current_row, rule_number, is_play
+    global cells0, row_current, rule_number, is_play
     # print(current_row)
     for j in range(col):
         result = eval_neighbours(j)
@@ -77,7 +77,7 @@ def next_generation():
 
 
 def clear_cells():
-    global cells0, cnt, current_row, is_play, cnt
+    global cells0, cnt, row_current, is_play, cnt
     for i in range(row):
         for j in range(col):
             cells0[i][j] = 0
@@ -90,7 +90,7 @@ def clear_cells():
 
 
 def randomize_cells0():
-    global cells0, current_row
+    global cells0, row_current
     for j in range(col):
         cells0[0][j] = random.randint(0, 1)
     draw_cell()
@@ -98,7 +98,7 @@ def randomize_cells0():
 
 
 def initialize_cells0():
-    global cells0, current_row
+    global cells0, row_current
     cells0[0][row // 2] = 1
     current_row = 0
 
@@ -200,7 +200,7 @@ is_play = False
 is_auto = False
 cnt = 0
 
-current_row = 0
+row_current = 0
 
 rule_number = int(30)
 rule_number_bin_str = format(rule_number, '08b')
