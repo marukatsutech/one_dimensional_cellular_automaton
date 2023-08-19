@@ -121,7 +121,7 @@ def draw_cell():
             if cells0[i][j] == 1:
                 y.append(i + cells_offset)
                 x.append(j + cells_offset)
-                s.append(x_size ** 2 * 0.04)
+                s.append(x_size ** 2 * 0.03)
     scat.set_offsets(np.column_stack([x, y]))
     scat.set_sizes(s)
 
@@ -160,7 +160,7 @@ def switch_auto():
         is_auto = False
     else:
         is_auto = True
-        change_rule_num(0)
+        # change_rule_num(0)
         var_rn.set(rule_number)
         is_play = True
 
@@ -186,12 +186,12 @@ def update(f):
 
 # Global variables
 x_min = 0.
-x_max = 80.
+x_max = 40.
 y_min = 0
-y_max = 80
+y_max = 40
 
-row = 80
-col = 80
+row = 40
+col = 40
 cells0 = np.zeros((row, col))   # Cells plane
 
 cells_offset = 0.5   # Offset in plt.scatter
