@@ -45,9 +45,9 @@ def boundary_col(n):    # Boundary condition
 def eval_neighbours(cl):
     global cells0, row_current, rule_number_bin_str
     # result = 0
-    cell_left = cells0[current_row][boundary_row(cl - 1)]
-    cell_self = cells0[current_row][cl]
-    cell_right = cells0[current_row][boundary_row(cl + 1)]
+    cell_left = cells0[row_current][boundary_row(cl - 1)]
+    cell_self = cells0[row_current][cl]
+    cell_right = cells0[row_current][boundary_row(cl + 1)]
     pattern = str(int(cell_left)) + str(int(cell_self)) + str(int(cell_right))
     # print(pattern)
     if pattern == "111":
@@ -76,10 +76,10 @@ def next_generation():
     # print(current_row)
     for j in range(col):
         result = eval_neighbours(j)
-        cells0[boundary_row(current_row + 1)][j] = result
-    current_row += 1
-    if current_row > row - 1:
-        current_row = 0
+        cells0[boundary_row(row_current + 1)][j] = result
+    row_current += 1
+    if row_current > row - 1:
+        row_current = 0
         if is_auto:
             rule_number += 1
             if rule_number > 255:
