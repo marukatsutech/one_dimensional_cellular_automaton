@@ -23,7 +23,7 @@ def change_rule_num(value):
     rule_dictionary.clear()
     for i in reversed(range(8)):
         pattern = format(i, '03b')
-        rule_dictionary[pattern] = int(r[7 - i])
+        rule_dictionary[pattern] = int(rule_number_bin_str[7 - i])
     print(rule_dictionary)
     clear_cells()
     initialize_cells0()
@@ -213,7 +213,7 @@ rule_dictionary = {}
 for ii in reversed(range(8)):
     pt = format(ii, '03b')  # pt:pattern
     # print(pt)
-    rule_dictionary[pt] = int(r[7 - ii])
+    rule_dictionary[pt] = int(rule_number_bin_str[7 - ii])
 
 print(rule_dictionary)
 
