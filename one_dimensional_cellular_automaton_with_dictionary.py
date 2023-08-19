@@ -47,11 +47,11 @@ def boundary_col(n):    # Boundary condition
         return n
 
 
-def eval_neighbours(rw):
+def eval_neighbours(cl):
     global cells0, current_row, rule_dictionary
-    cell_left = cells0[current_row][boundary_row(rw - 1)]
-    cell_self = cells0[current_row][rw]
-    cell_right = cells0[current_row][boundary_row(rw + 1)]
+    cell_left = cells0[current_row][boundary_row(cl - 1)]
+    cell_self = cells0[current_row][cl]
+    cell_right = cells0[current_row][boundary_row(cl + 1)]
     pattern = str(int(cell_left)) + str(int(cell_self)) + str(int(cell_right))
     # print(pattern)
     result = int(rule_dictionary[pattern])
