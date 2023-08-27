@@ -90,14 +90,14 @@ def next_generation():
 
 
 def clear_cells():
-    global cells0, cnt, row_current, is_play, cnt
+    global cells0, cnt, row_current, is_play
     for i in range(row):
         for j in range(col):
             cells0[i][j] = 0
     cnt = 0
     tx_step.set_text("Step=" + str(cnt))
     draw_cell()
-    current_row = 0
+    row_current = 0
     is_play = False
     cnt = 0
 
