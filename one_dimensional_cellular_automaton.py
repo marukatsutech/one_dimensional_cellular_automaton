@@ -1,7 +1,5 @@
 # One dimensional cellular automaton
-import copy
 
-import matplotlib.pyplot as plt
 import numpy as np
 import random
 from matplotlib.figure import Figure
@@ -113,7 +111,7 @@ def randomize_cells0():
 def initialize_cells0():
     global cells0, row_current
     cells0[0][row // 2] = 1
-    current_row = 0
+    row_current = 0
 
 
 def draw_cell():
