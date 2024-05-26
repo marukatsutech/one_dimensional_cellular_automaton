@@ -282,6 +282,6 @@ label_rule = tk.Label(root, text=rule)
 label_rule.pack(side='left')
 
 # Draw animation
-anim = animation.FuncAnimation(fig, update, interval=50)
+anim = animation.FuncAnimation(fig, update, interval=50, save_count=100)
 root.bind('<Configure>', on_change_window)
 root.mainloop()
